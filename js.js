@@ -10,16 +10,19 @@ function dibujarGrafo (num) {
   switch (num) {
     case 0:
       var dot = 'dinetwork {node[shape=circle];1 -> 2 [label="B>B, L"]; 2 -> 3[label="B>B, R"]; 1 -> 1[label="b>a, R|a>a, R"]; 2 -> 2[label="a>a, L"]; 3[ borderWidth=7]}';
-      break;
+    break;
     case 1:
       var dot = 'dinetwork {node[shape=circle];1[color = red];1 -> 2 [label="B>B, L"]; 2 -> 3[label="B>B, R"]; 1 -> 1[label="b>a, R|a>a, R"]; 2 -> 2[label="a>a, L"]; 3[ borderWidth=7]}';
-      break;
+    break;
+    case 2:
+      var dot = 'dinetwork {node[shape=circle];1 -> 2 [label="B>B, L"];2[color = red];2 -> 3[label="B>B, R"]; 1 -> 1[label="b>a, R|a>a, R"]; 2 -> 2[label="a>a, L"]; 3[ borderWidth=7]}';
+    break;
+    case 3:
+      var dot = 'dinetwork {node[shape=circle];1 -> 2 [label="B>B, L"];2 -> 3[label="B>B, R"]; 1 -> 1[label="b>a, R|a>a, R"]; 2 -> 2[label="a>a, L"];3[color = red]; 3[ borderWidth=7]}';
+    break;
     default:
       break;
   }
-  
-  
-  
   
   var data = vis.parseDOTNetwork(dot);
 
@@ -69,11 +72,13 @@ function limpiarCinta() {
 function dibujarCinta(arreglo) {
   let tam = contarArreglo(arreglo);
   $("#carrete").append('<div id = "elemento0" class="circulo"></div>');
-  for(let i = 0; i < tam; i++){
+  let i;
+  for(i = 0; i < tam; i++){
     $("#carrete").append('<div class="circulo" id = "elemento">'+arreglo[i]+'</div>');   
     $("#elemento").attr("id","elemento"+(i+1));
   }
-  $("#carrete").append('<div class="circulo" id = "elementoN"></div>');
+  $("#carrete").append('<div class="circulo" id = "elemento"></div>');
+  $("#elemento").attr("id","elemento"+(i+1));
 }
 
 function contarArreglo(arreglo) {
@@ -102,63 +107,122 @@ function completarPreliminares() {
   dibujarCinta(arreglo);
   animarCinta();  
   $("#correr" ).click(function() {
-    cambiar(0,contarArreglo(arreglo));
+    recorrerDerecha(0,contarArreglo(arreglo));
+    
   });
 }
   
-
-function cambiar(i,tam){
+function recorrerDerecha(i,tam) {
+  
   if(i<tam){
+    
     console.log("iteracion"+i);
   setTimeout(function(){
-    dibujarGrafo(1);
+    
     anime({
       targets: '#elemento'+i,
       backgroundColor: '#FFF',
     });
-  
+    dibujarGrafo(1);
   },(i*2500)+2000);
   setTimeout(function(){
-    dibujarGrafo(0);
+    
     if($('#elemento'+i).text()=="b"){
       $('#elemento'+i).text("a");
     }
     anime({
       targets: '#elemento'+i,
+      backgroundColor: '#008f39',
+    });
+    
+    },(i*2500)+2500);
+    i++;
+    recorrerDerecha(i,tam);
+  }else{
+    leerVacioDerecha(i);
+  }  
+  
+  
+}
+
+function leerVacioDerecha(i) {
+  
+  setTimeout(function(){
+    anime({
+      targets: '#elemento'+(i+1),
+      backgroundColor: '#FFF',
+    });
+    dibujarGrafo(2);
+  },(i*2500)+2000);
+  setTimeout(function(){
+    anime({
+      targets: '#elemento'+(i+1),
+      backgroundColor: '#008f39',
+    });
+    
+  },(i*2500)+2500);
+  console.log(i+1);
+  
+  recorrerIzquierda(i+1,i+1);
+}
+
+function recorrerIzquierda(i,j) {
+  console.log("entrooo");
+  if(i>1){
+    
+    console.log("iteracion"+i);
+  setTimeout(function(){
+    
+    anime({
+      targets: '#elemento'+i,
+      backgroundColor: '#FFF',
+    });
+  
+  },(j*2500)+2000);
+  setTimeout(function(){
+    anime({
+      targets: '#elemento'+i,
+      backgroundColor: '#008f39',
+    });
+    },(j*2500)+2500);
+    i--;
+    j++;
+    recorrerIzquierda(i,j);
+  }else{
+    leerVacioIzquierda(j);
+  }  
+  
+  
+}
+
+
+function leerVacioIzquierda(i) {
+  
+  setTimeout(function(){
+    anime({
+      targets: '#elemento0',
+      backgroundColor: '#FFF',
+    });
+    dibujarGrafo(3);
+  },(i*2500)+2000);
+  setTimeout(function(){
+    anime({
+      targets: '#elemento0',
       backgroundColor: '#008f39',
     });
   },(i*2500)+2500);
   i++;
-  cambiar(i,tam);
-  }
-  
-}
-
-function cambiar2(i,tam){
-  if(i<tam){
-    
-  }
-  console.log("iteracion"+i);
   setTimeout(function(){
     anime({
-      targets: '#elemento'+i,
+      targets: '#elemento1',
       backgroundColor: '#FFF',
     });
-  
   },(i*2500)+2000);
   setTimeout(function(){
-    if($('#elemento'+i).text()=="b"){
-      $('#elemento'+i).text("a");
-    }
     anime({
-      targets: '#elemento'+i,
+      targets: '#elemento1',
       backgroundColor: '#008f39',
     });
   },(i*2500)+2500);
-  if (i <=tam-1) {
-    i++;  
-    cambiar(i,tam);
-  }else{
-    i=tam+2;
-  }
+  
 }
