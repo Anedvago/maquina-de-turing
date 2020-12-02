@@ -9,16 +9,25 @@ function dibujarGrafo (num) {
   var container = document.getElementById("mynetwork");
   switch (num) {
     case 0:
-      var dot = 'dinetwork {node[shape=circle];1 -> 2 [label="B>B, L"]; 2 -> 3[label="B>B, R"]; 1 -> 1[label="b>a, R|a>a, R"]; 2 -> 2[label="a>a, L"]; 3[ borderWidth=7]}';
+      var dot = 'dinetwork {node[shape=circle];1 -> 2 [label=" B / B / L" color=blue]; 2 -> 3[label=" B / B / R" color=blue]; 1 -> 1[label=" b / a / R | a / a / R " color=blue]; 2 -> 2[label=" a / a / L " color=blue]; 3[ borderWidth=7]}';
     break;
     case 1:
-      var dot = 'dinetwork {node[shape=circle];1[color = red];1 -> 2 [label="B>B, L"]; 2 -> 3[label="B>B, R"]; 1 -> 1[label="b>a, R|a>a, R"]; 2 -> 2[label="a>a, L"]; 3[ borderWidth=7]}';
+      var dot = 'dinetwork {node[shape=circle];1[color = red];1 -> 2 [label=" B / B / L " color=blue]; 2 -> 3[label=" B / B / R " color=blue]; 1 -> 1[label=" a / a / R " color=red]; 2 -> 2[label=" a / a / L" color=blue]; 3[ borderWidth=7]}';
     break;
     case 2:
-      var dot = 'dinetwork {node[shape=circle];1 -> 2 [label="B>B, L"];2[color = red];2 -> 3[label="B>B, R"]; 1 -> 1[label="b>a, R|a>a, R"]; 2 -> 2[label="a>a, L"]; 3[ borderWidth=7]}';
+      var dot = 'dinetwork {node[shape=circle];1 -> 2 [label=" B / B / L " color=red];2[color = red];2 -> 3[label=" B / B / R " color=blue]; 1 -> 1[label=" b / a / R | a / a / R " color=blue]; 2 -> 2[label=" a / a / L " color=blue]; 3[ borderWidth=7]}';
     break;
     case 3:
-      var dot = 'dinetwork {node[shape=circle];1 -> 2 [label="B>B, L"];2 -> 3[label="B>B, R"]; 1 -> 1[label="b>a, R|a>a, R"]; 2 -> 2[label="a>a, L"];3[color = red]; 3[ borderWidth=7]}';
+      var dot = 'dinetwork {node[shape=circle];1->2[color=red];1 -> 2 [label=" B / B / L " color=blue];2 -> 3[label=" B / B / R " color=red]; 1 -> 1[label=" b / a / R | a / a / R " color=blue]; 2 -> 2[label=" a / a / L " color=blue];3[color = red]; 3[ borderWidth=7]}';
+    break;
+    case 4:
+      var dot = 'dinetwork {node[shape=circle];1[color = red];1 -> 2 [label=" B / B / L " color = blue]; 2 -> 3[label=" B / B / R " color = blue]; 1 -> 1[label=" b / a / R " color = red]; 2 -> 2[label=" a / a / L " color = blue]; 3[ borderWidth=7]}';
+    break;
+    case 5:
+      var dot = 'dinetwork {node[shape=circle];1 -> 2 [label=" B / B / L " color=blue];2[color = red];2 -> 3[label=" B / B / R " color=blue]; 1 -> 1[label=" b / a / R | a > a / R " color=blue]; 2 -> 2[label=" a / a / L " color=red]; 3[ borderWidth=7]}';
+    break;
+    case 6:
+      var dot = 'dinetwork {node[shape=circle];1->2[color=red];1 -> 2 [label=" B / B / L " color=blue];2 -> 3[label=" B / B / R " color=blue]; 1 -> 1[label=" b / a / R | a / a / R " color=blue]; 2 -> 2[label=" a / a / L " color=blue];3[color = red]; 3[ borderWidth=7]}';
     break;
     default:
       break;
@@ -48,7 +57,7 @@ function dibujarGrafo (num) {
         size: 16,
       },
       shadow: true,
-      color: "blue",
+      //color: "blue",
     },
   };
   var network = new vis.Network(container, data, options);
@@ -118,17 +127,21 @@ function recorrerDerecha(i,tam) {
     
     console.log("iteracion"+i);
   setTimeout(function(){
-    
+    if($('#elemento'+i).text()!="b"){
+      $('#elemento'+i).text("a");
+      dibujarGrafo(1);
+    }
     anime({
       targets: '#elemento'+i,
       backgroundColor: '#FFF',
     });
-    dibujarGrafo(1);
+    
   },(i*2500)+2000);
   setTimeout(function(){
     
     if($('#elemento'+i).text()=="b"){
       $('#elemento'+i).text("a");
+      dibujarGrafo(4);
     }
     anime({
       targets: '#elemento'+i,
@@ -172,7 +185,7 @@ function recorrerIzquierda(i,j) {
     
     console.log("iteracion"+i);
   setTimeout(function(){
-    
+    dibujarGrafo(5);
     anime({
       targets: '#elemento'+i,
       backgroundColor: '#FFF',
@@ -213,6 +226,7 @@ function leerVacioIzquierda(i) {
   },(i*2500)+2500);
   i++;
   setTimeout(function(){
+    dibujarGrafo(6);
     anime({
       targets: '#elemento1',
       backgroundColor: '#FFF',
