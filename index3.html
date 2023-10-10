@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+    <title>Maquina de touring</title>
+  </head>
+  <body>
+    <div class="h-screen w-screen flex justify-evenly items-center">
+      <div class="bg-white w-1/4 h-3/4 p-5 shadow-md">
+        <h1 class="text-xl font-bold">¿Que es una maquina de Turing?</h1>
+        <br />
+        <p>
+          Una máquina de Turing es un dispositivo teórico que ayuda a entender
+          el concepto de computación y cómo funcionan los algoritmos. En
+          términos simples, una máquina de Turing consta de una cinta infinita
+          dividida en celdas, cada una conteniendo un símbolo.<br /><br />
+          El funcionamiento básico implica que la máquina de Turing lee un
+          símbolo de la cinta, consulta su tabla de reglas para determinar la
+          próxima acción basada en el símbolo y el estado actual, y luego se
+          mueve y cambia de estado según estas reglas. Este proceso se repite
+          hasta que la máquina entra en un estado de paro, momento en el cual el
+          proceso termina y se produce un resultado. <br />
+        </p>
+      </div>
+      <div class="bg-white w-2/5 h-3/4 p-5 shadow-md flex flex-col">
+        <form class="h-1/8 text-center w-full mb-1">
+          <input
+            type="text"
+            class="border border-blue-300 px-3 py-2 focus:outline-none focus:shadow-outline focus:border-blue-600"
+            id="entrada"
+          />
+          <button
+            type="button"
+            class="bg-blue-200 px-3 py-2 hover:bg-blue-300"
+            id="entrar"
+          >
+            Aceptar
+          </button>
+          <button
+            type="button"
+            class="bg-blue-200 px-3 py-2 hover:bg-blue-300"
+            id="correr"
+          >
+            correr
+          </button>
+        </form>
+        <div id="mynetwork" class="h-full bg-gray-100"></div>
+      </div>
+      <div class="bg-white w-1/4 h-3/4 p-5 shadow-md flex flex-col">
+        <h1 class="text-xl font-bold">Nuestra maquina de Turing</h1>
+        <br />
+        <p>
+          Escribe una cadena de letras(A,B) ingresa la cadena y oprime el boton
+          de correr para ver la ejecución. <br />
+          Mas info aqui.
+        </p>
+        <br />
+        <iframe
+          class="h-full"
+          src="https://es.wikipedia.org/wiki/M%C3%A1quina_de_Turing"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </div>
+    <div class="absolute bottom-20 w-full flex justify-center">
+      <div class="flex row items-start" id="carrete"></div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+      integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+      integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js.js"></script>
+  </body>
+</html>
